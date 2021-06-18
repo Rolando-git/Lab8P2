@@ -8,6 +8,7 @@ package Principal;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -56,6 +57,9 @@ public class Main extends javax.swing.JFrame {
         jSpinner4 = new javax.swing.JSpinner();
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jComboBox5 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -220,15 +224,62 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Crear", jPanel1);
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Marca", "VIN", "Carroceria", "puertas", "Color", "Motor", "Precio", "Hibridacion", "Pasajeros", "Ensamblaje"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Generalistas", "Premium", "Deportivos" }));
+        jComboBox5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox5ItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 568, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Listar", jPanel2);
@@ -285,40 +336,48 @@ public class Main extends javax.swing.JFrame {
         if (marca.equals("seat")||marca.equals("skoda")){
             db.conectar();
             try {
-            db.query.execute("INSERT INTO Generalistas"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
+                db.query.execute("INSERT INTO Generalistas"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
                     "VALUES('"+marca+"','"+vin+"','"+carroceria+"','"+puertas+"','"+color+"','"+motor+"','"+motor+"','"+precio+"','"+hibridacion+"','"+pasajeros+"','"+ensamblaje+"')");
-            db.commit();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+                db.commit();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             db.desconectar();
             JOptionPane.showMessageDialog(this, "Agregado a la base de datos");
         }
         if (marca.equals("audi")||marca.equals("volkwagen")||marca.equals("bentley")){
             db.conectar();
             try {
-            db.query.execute("INSERT INTO Premium"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
+                db.query.execute("INSERT INTO Premium"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
                     "VALUES('"+marca+"','"+vin+"','"+carroceria+"','"+puertas+"','"+color+"','"+motor+"','"+motor+"','"+precio+"','"+hibridacion+"','"+pasajeros+"','"+ensamblaje+"')");
-            db.commit();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+                db.commit();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             db.desconectar();
             JOptionPane.showMessageDialog(this, "Agregado a la base de datos");
         }
         if (marca.equals("porsche")||marca.equals("lamborghini")||marca.equals("bugatti")){
             db.conectar();
             try {
-            db.query.execute("INSERT INTO Deportivos"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
+                db.query.execute("INSERT INTO Deportivos"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
                     "VALUES('"+marca+"','"+vin+"','"+carroceria+"','"+puertas+"','"+color+"','"+motor+"','"+motor+"','"+precio+"','"+hibridacion+"','"+pasajeros+"','"+ensamblaje+"')");
-            db.commit();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
+                db.commit();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             db.desconectar();
             JOptionPane.showMessageDialog(this, "Agregado a la base de datos");
         }
     }//GEN-LAST:event_jToggleButton1MouseClicked
+
+    private void jComboBox5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox5ItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange()==1){
+            DefaultTableModel modelo = (DefaultTableModel)jTable1.getModel();
+            DefaultComboBoxModel modeloBOX = (DefaultComboBoxModel)jComboBox5.getModel();
+        }
+    }//GEN-LAST:event_jComboBox5ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -360,6 +419,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -375,11 +435,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleButton1;
