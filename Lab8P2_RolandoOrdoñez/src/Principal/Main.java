@@ -5,6 +5,10 @@
  */
 package Principal;
 
+import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Rolando
@@ -64,7 +68,7 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Marca:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seat", "skoda", "audi", "volskwagen", "bently", "porsche", "lamborghini", "bugatti" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "seat", "skoda", "audi", "volskwagen", "bentley", "porsche", "lamborghini", "bugatti" }));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("VIN:");
@@ -108,6 +112,11 @@ public class Main extends javax.swing.JFrame {
         jSpinner4.setModel(new javax.swing.SpinnerNumberModel(1, 1, 1000, 1));
 
         jToggleButton1.setText("Crear");
+        jToggleButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jToggleButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -255,6 +264,61 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jToggleButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jToggleButton1MouseClicked
+        // TODO add your handling code here:
+        Dba db = new Dba("./Base_1.accdb");
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel)jComboBox1.getModel();
+        String marca = (String)modelo.getSelectedItem();
+        String vin = jTextField1.getText();
+        DefaultComboBoxModel modelo1 = (DefaultComboBoxModel)jComboBox2.getModel();
+        String carroceria = (String)modelo1.getSelectedItem();
+        int puertas = (Integer)jSpinner1.getValue();
+        String color = jTextField2.getText();
+        DefaultComboBoxModel modelo2 = (DefaultComboBoxModel)jComboBox3.getModel();
+        String motor = (String)modelo2.getSelectedItem();
+        int precio = (Integer)jSpinner2.getValue();
+        DefaultComboBoxModel modelo3 = (DefaultComboBoxModel)jComboBox4.getModel();
+        String hibridacion = (String)modelo3.getSelectedItem();
+        int pasajeros = (Integer)jSpinner3.getValue();
+        int ensamblaje = (Integer)jSpinner4.getValue();
+        if (marca.equals("seat")||marca.equals("skoda")){
+            db.conectar();
+            try {
+            db.query.execute("INSERT INTO Generalistas"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
+                    "VALUES('"+marca+"','"+vin+"','"+carroceria+"','"+puertas+"','"+color+"','"+motor+"','"+motor+"','"+precio+"','"+hibridacion+"','"+pasajeros+"','"+ensamblaje+"')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+            db.desconectar();
+            JOptionPane.showMessageDialog(this, "Agregado a la base de datos");
+        }
+        if (marca.equals("audi")||marca.equals("volkwagen")||marca.equals("bentley")){
+            db.conectar();
+            try {
+            db.query.execute("INSERT INTO Premium"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
+                    "VALUES('"+marca+"','"+vin+"','"+carroceria+"','"+puertas+"','"+color+"','"+motor+"','"+motor+"','"+precio+"','"+hibridacion+"','"+pasajeros+"','"+ensamblaje+"')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+            db.desconectar();
+            JOptionPane.showMessageDialog(this, "Agregado a la base de datos");
+        }
+        if (marca.equals("porsche")||marca.equals("lamborghini")||marca.equals("bugatti")){
+            db.conectar();
+            try {
+            db.query.execute("INSERT INTO Deportivos"+"(Marca,VIN,Carroceria,puertas,Color,Motor,Precio,Hibridacion,Pasajeros,Ensamblaje)"+
+                    "VALUES('"+marca+"','"+vin+"','"+carroceria+"','"+puertas+"','"+color+"','"+motor+"','"+motor+"','"+precio+"','"+hibridacion+"','"+pasajeros+"','"+ensamblaje+"')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+            db.desconectar();
+            JOptionPane.showMessageDialog(this, "Agregado a la base de datos");
+        }
+    }//GEN-LAST:event_jToggleButton1MouseClicked
 
     /**
      * @param args the command line arguments

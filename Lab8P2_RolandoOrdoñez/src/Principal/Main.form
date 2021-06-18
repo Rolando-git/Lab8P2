@@ -189,7 +189,7 @@
                     <StringItem index="1" value="skoda"/>
                     <StringItem index="2" value="audi"/>
                     <StringItem index="3" value="volskwagen"/>
-                    <StringItem index="4" value="bently"/>
+                    <StringItem index="4" value="bentley"/>
                     <StringItem index="5" value="porsche"/>
                     <StringItem index="6" value="lamborghini"/>
                     <StringItem index="7" value="bugatti"/>
@@ -351,6 +351,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jToggleButton1MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
