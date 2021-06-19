@@ -1,1 +1,3 @@
-# Lab8P2
+Inclui las librerias de las bases de datos, pero no se porque no me deja añadir nada a la base de datos, hice todo tal cual lo vimos en clase asi que solo me queda esperar que en tu compu (porque ya me ha pasado que en mi compu no funcionana los programas pero en otra si) si funcione XDDD
+Inclui las librerias tal cual como nos enseñaste y no funcina, elimine el proyecto y lo volvi a crear a ver si asi se solucionada y nada, reinicie la compu tambien y nada, ya no sabia que mas intentar....
+asi que ahi dejo todo en mi programa con la esperanza de que funcione ya que no lo pude probar :'(
